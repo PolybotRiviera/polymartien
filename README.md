@@ -1,2 +1,4 @@
-# polymartien
-Repo du projet de la coupe de robotique, édition 2024 : Farming Mars, de l'équipe de roboticiens de Polytech Nice Sophia!
+# Polymartien
+
+Repo of the robotics project, 2024 edition: Farming Mars,
+from the Polytech Nice Sophia robotics team!
