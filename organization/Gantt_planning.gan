@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2023-09-01" view-index="0" gantt-divider-location="741" resource-divider-location="300" version="3.2.3230" locale="fr_FR">
+    <description/>
+    <view zooming-state="default:10" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="504" order="0"/>
+        <field id="tpd4" name="Date de début" width="139" order="1"/>
+        <field id="tpd5" name="Date de fin" width="97" order="2"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="color.recent">
+            <![CDATA[#ffccff #cc00cc #0033cc #003366 #66ffff #ccccff #ffffff #ffcccc #cc99ff #6600cc]]>
+        </option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="Rolling base conception and construction (Loïc Leroy)" color="#66ffff" meeting="false" start="2023-09-11" duration="103" complete="0" thirdDate="2023-10-23" thirdDate-constraint="0" expand="true"/>
+        <task id="6" name="Servoing and Odometry (Adrien Waeles)" color="#8cb6ce" meeting="false" start="2023-09-11" duration="103" complete="0" thirdDate="2023-07-03" thirdDate-constraint="0" expand="true"/>
+        <task id="2" name="Ladybugs (SIMA) conception (Jimmy Vu)" color="#ff6666" meeting="false" start="2023-11-01" duration="114" complete="0" thirdDate="2023-08-01" thirdDate-constraint="0" expand="true"/>
+        <task id="7" name="Solar pannel actuator (Teo Baillot &amp; Alexis Alexis Lallemand)" color="#ffff00" meeting="false" start="2023-12-15" duration="35" complete="0" thirdDate="2023-07-03" thirdDate-constraint="0" expand="true"/>
+        <task id="1" name="Debugging, optimization (everyone)" color="#66ff00" meeting="false" start="2024-04-08" duration="22" complete="0" thirdDate="2023-10-23" thirdDate-constraint="0" expand="true"/>
+        <task id="3" name="Competition days" color="#003333" meeting="false" start="2024-05-08" duration="3" complete="0" thirdDate="2023-08-01" thirdDate-constraint="0" expand="true"/>
+        <task id="8" name="Camera vision and IA (Nino Mulac)" color="#6600cc" meeting="false" start="2023-10-02" duration="135" complete="0" thirdDate="2023-08-01" thirdDate-constraint="0" expand="true"/>
+        <task id="4" name="Grasping actuator (Loïc Leroy)" color="#ff66ff" meeting="false" start="2023-09-11" duration="60" complete="0" thirdDate="2023-09-01" thirdDate-constraint="0" expand="true"/>
+        <task id="5" name="Playfield table construction (Teo Baillot, Alexis Lallemand, Jimmy Vu, Adrien Waeles)" color="#cccccc" meeting="false" start="2023-11-06" duration="18" complete="0" thirdDate="2023-09-01" thirdDate-constraint="0" expand="true"/>
+        <task id="9" name="Electronics and Cable Management (Teo Baillot &amp; Alexis Lallemand)" color="#0033cc" meeting="false" start="2024-01-01" duration="70" complete="0" thirdDate="2023-09-01" thirdDate-constraint="0" expand="true"/>
+        <task id="10" name="Research and strategy (everyone)" color="#ffccff" meeting="false" start="2023-09-11" duration="48" complete="0" thirdDate="2023-08-01" thirdDate-constraint="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
