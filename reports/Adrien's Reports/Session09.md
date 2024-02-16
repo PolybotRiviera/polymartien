@@ -8,19 +8,23 @@ Firstly, after conducting some research, I discovered the Ziegler-Nichols method
 <img src="Report's images\Session09\Ziegler Nichols table values.png" width="450">
 
 With low values of P, the system becomes stable very quickly.
+
 <img src="Report's images\Session09\P=1.png" width="250"> P = 1
 
 <img src="Report's images\Session09\P=2.png" width="250"> P = 2
 
 At P=3, the system was noticeably less stable but still exhibited a tendency towards stability.
+
 <img src="Report's images\Session09\P=3.5.png" width="250"> P = 3.5
 
 Finally, with P=5.2, my system is approaching the stability limit, as the error tends to oscillate with nearly the same frequency and amplitude.
+
 <img src="Report's images\Session09\P=5.2.png" width="250"> P = 5.2
 
 I was then able to measure the frequency of the oscillations from the last graph and, using the Ziegler-Nichols table, determine my P, I, D coefficients
 
 Here are the results with the error after implementing the new PID coefficients:
+
 <img src="Report's images\Session09\Result_Ziegler_Nichols.png" width="350">
 
 This result is quite unsatisfactory. Despite achieving a final error close to zero, there is a significant overshoot. I need to verify if I made a mistake in applying the Ziegler-Nichols method or if it is not suitable for our system.
