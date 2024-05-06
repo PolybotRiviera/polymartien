@@ -1,14 +1,18 @@
 import math
-from typing import Generator, Any
+from typing import Generator, Any, Literal, Union
 
 
 class Coord():
     """Vec2D object, created by rectangular or polar coordinates(with float coords in normal
     condition, but if broken, can have floats.(used for the moving anims)"""
 
-    def __init__(self, abscisse: float, ordonnee: float):
-        self.abs: float = abscisse
-        self.ord: float = ordonnee
+    def __init__(self, abscisse: Union[float, Any], ordonnee: Union[float, None] = None) -> None:
+        if ordonnee is None:
+            self.abs: float = abscisse.x()
+            self.ord: float = abscisse.y()
+        else:
+            self.abs: float = abscisse
+            self.ord: float = ordonnee
 
     def __repr__(self) -> str:
         return "<" + str(self.abs) + "," + str(self.ord) + ">"
@@ -17,7 +21,7 @@ class Coord():
         return (
             self.abs == other.abs and self.ord == other.ord
             if isinstance(other, Coord)
-            else len(self) == other
+            else self.size() == other
         )
 
     def __ne__(self, other: "Coord") -> bool:
@@ -41,7 +45,7 @@ class Coord():
             return Coord(self.abs - other.abs, self.ord - other.ord)
         return Coord(self.abs - other, self.ord - other)
 
-    def __abs__(self):
+    def __abs__(self) -> "Coord":
         return Coord(abs(self.abs), abs(self.ord))
 
     def __floordiv__(self, other: "Coord") -> "Coord":
@@ -54,28 +58,28 @@ class Coord():
             return Coord(self.abs / other.abs, self.ord / other.ord)
         return Coord(self.abs / other, self.ord / other)
 
-    def __len__(self) -> float:
+    def size(self) -> float:
         return math.sqrt(self.abs ** 2 + self.ord ** 2)
 
     def __lt__(self, other: "Coord") -> bool:
         if isinstance(other, Coord):
-            return len(self) < len(other)
-        return len(self) < other
+            return self.size() < other.size()
+        return self.size() < other
 
     def __gt__(self, other: "Coord") -> bool:
         if isinstance(other, Coord):
-            return len(self) > len(other)
-        return len(self) > other
+            return self.size() > other.size()
+        return self.size() > other
 
     def __le__(self, other: "Coord") -> bool:
         if isinstance(other, Coord):
-            return len(self) <= len(other)
-        return len(self) <= other
+            return self.size() <= other.size()
+        return self.size() <= other
 
     def __ge__(self, other: "Coord") -> bool:
         if isinstance(other, Coord):
-            return len(self) >= len(other)
-        return len(self) >= other
+            return self.size() >= other.size()
+        return self.size() >= other
 
     def __iter__(self) -> Generator[float, Any, None]:
         for i in (self.abs, self.ord):
@@ -94,13 +98,13 @@ class Coord():
 
     def distance(self, other: "Coord") -> float:
         "Diagonal distance between two points"
-        return (self - other).__len__()
+        return (self - other).size()
 
     def dirtrig(self):
         "Direction from the center to a points"
         if self == Coord(0, 0):
             return Coord(0, 0)
-        cos = self.abs / self.__len__()
+        cos = self.abs / self.size()
         if cos > 1 / math.sqrt(2) - 0.1:
             return Coord(-1, 0)
         if cos < -1 / math.sqrt(2) + 0.1:
@@ -109,11 +113,14 @@ class Coord():
             return Coord(0, -1)
         return Coord(0, 1)
 
-    def cosinus(self, other: "Coord"):
-        """returns the cosine of a coord (adj/hyp)"""
-        return (self - other).abs / (self - other).__len__()
+    def normalized(self):
+        return self / self.size()
 
-    def direction(self, other: "Coord"):
+    def cosinus(self, other: "Coord") -> float:
+        """returns the cosine of a coord (adj/hyp)"""
+        return (self - other).abs / (self - other).size()
+
+    def direction(self, other: "Coord") -> "Coord":
         "Direction from a point to another"
         return (self - other).dirtrig()
 
@@ -133,7 +140,7 @@ class Coord():
         "Middle of two Coords"
         return (self + other) // 2
 
-    def facing(self):
+    def facing(self) -> Literal[1, 2, 3, 0]:
         "Function to choose the correct direction of an image"
         direction = self.dirtrig()
         if direction == Coord(0, 1):
