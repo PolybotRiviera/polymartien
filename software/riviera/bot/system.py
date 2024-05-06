@@ -14,6 +14,7 @@ esp = """
     ATTRS{idProduct}=="ea60"
     ATTRS{idVendor}=="10c4"
     ATTRS{serial}=="0000:00:14.0"
+    ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="board/arduino/uno1"
     """
 
 
