@@ -29,6 +29,7 @@ import action_grabber_height
 import action_grabber_angle
 import action_holder_distance
 import action_holder_angle
+import action_start
 
 
 TIME_INIT = 0
@@ -44,9 +45,10 @@ class RobotController:
         self.back_cam = camera_comm.CameraCommunicator("/dev/camera/back_cam")
         self.left_cam = camera_comm.CameraCommunicator("/dev/camera/left_cam")
 
-        self.action_speed = action_robot_speed.ActionRobotSpeed(self.esp)                                   # TODO: set max speed
+        self.action_start = action_start.ActionStart(self.esp)
         self.action_emergency_stop = action_emergency_stop.ActionEmergencyStop(self.esp)
         self.action_emergency_resume = action_emergency_resume.ActionEmergencyResume(self.esp)
+        self.action_speed = action_robot_speed.ActionRobotSpeed(self.esp)                                   # TODO: set max speed
         self.action_grabber_height = action_grabber_height.ActionGrabberHeight(self.esp)                    # TODO: set max height
         self.action_grabber_angle = action_grabber_angle.ActionGrabberAngle(self.esp)                       # TODO: set min/max angle
         self.action_holder_distance = action_holder_distance.ActionHolderDistance(self.esp)                 # TODO: set max distance
@@ -94,6 +96,12 @@ class RobotController:
         """
         self.action_holder_angle.execute(angle)
 
+    def start(self) -> None:
+        """
+        Start the robot.
+        """
+        self.action_start.execute()
+
     def close(self) -> None:
         """
         Close the connection with the esp32.
@@ -128,4 +136,5 @@ class CoccinellesServer(BaseHTTPRequestHandler):
 def main():
     TIME_INIT = time.time()
     robot = RobotController()
-    robot.
+    robot.start()
+    robot.set_speed(0.1, 0.1)
