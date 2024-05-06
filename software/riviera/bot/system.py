@@ -10,6 +10,11 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import numpy
 
+esp = """
+    ATTRS{idProduct}=="ea60"
+    ATTRS{idVendor}=="10c4"
+    ATTRS{serial}=="0000:00:14.0"
+    """
 
 
 import esp_comm
