@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from time import sleep
+# from time import sleep
 import random
 import sys
 print(sys.version)
@@ -29,6 +29,7 @@ app = omni.kit.app.get_app_interface()
 
 from .bot import RBot
 from .plantsarea import PlantsArea
+from .obstaclesarea import ObstaclesArea
 
 ANGLE_CAMERAS_DOWN = 25
 
@@ -126,11 +127,25 @@ class RArena(XFormPrim):
             translation=np.array([300, -500, 0]),
             scale=np.array([150, 150, 150]),
         )
+        self.obstacles = ObstaclesArea(
+            "/World/Arena/obstacles",
+            "obstacles",
+        )
         self.body = XFormPrim(
             "/World/Arena/body",
             "body",
             translation=np.array([0, 0, 0]),
             orientation=rot_utils.euler_angles_to_quats(np.array([0, 0, 0]), degrees=True),
+        )
+        prim_path = "/World/Arena/body/robot"
+        add_reference_to_stage(
+            usd_path="/home/ekter/Documents/Omniverse/polybot/exts/polybot.riviera/polybot/riviera/models/robot-v3.usd",
+            prim_path=prim_path,
+        )
+        self.floor_container = XFormPrim(prim_path+"/Cube")
+        self.floor_container.set_local_pose(
+            translation=[0, 0, -0.5],
+            orientation=[0.5, 0.5, 0.5, 0.5],
         )
 
         self.camera_front = Camera(
@@ -218,6 +233,12 @@ class RArena(XFormPrim):
         self.set_body_pos(np.random.random(3)*np.array([1800, 2800, 0])-np.array([900, 1400, 0]))
         self.set_facing_dir(np.random.random()*360)
 
+    def randomize_obstacles(self):
+        for obstacle in self.obstacles.get_obstacles():
+            obstacle.set_world_pose(position=np.random.random(3)*np.array([1800, 2800, 0])-np.array([900, 1400, -100]))             # TODO set obstacle to ground
+        self.set_body_pos(np.random.random(3)*np.array([1800, 2800, 0])-np.array([900, 1400, 0]))
+        self.set_facing_dir(np.random.random()*360)
+
     def get_plants_poses(self):
         res = []
         for plant_area in self.plant_areas:
@@ -237,6 +258,18 @@ class RArena(XFormPrim):
                 phi = (phi_b - rot_utils.quats_to_euler_angles(camera.get_world_pose()[1])[2])
                 res.append((r, phi))
         return res                  #TODO normalize and %math.pi*2
+
+    def get_obstacles_in_camera_ref(self, camera: Camera = None):
+        if camera is None:
+            camera = self.camera_front
+        res = []
+        for obstacle in self.obstacles.get_obstacles():
+            for point in obstacle.get_contour_rectangle_corners():
+                pos_b = (point.get_world_pose()[0]-camera.get_world_pose()[0])*np.array([1, 1, 0])
+                r = np.linalg.norm(pos_b)
+                phi_b = math.atan2(pos_b[1], pos_b[0])
+                phi = (phi_b - rot_utils.quats_to_euler_angles(camera.get_world_pose()[1])[2])
+                res.append((r, phi))
 
     def get_cameras(self):
         return [self.camera_front, self.camera_right, self.camera_back, self.camera_left]
