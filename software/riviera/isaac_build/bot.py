@@ -1,0 +1,2 @@
+class RBot:
+    pass
