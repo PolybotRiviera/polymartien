@@ -13,8 +13,7 @@ from PySide6.QtWidgets import (
     QTableView,
     QProgressDialog,
 )
-from arena import IArena
-from bot import Bot
+from arena import IArena, Bot
 from coords import Coord
 
 
@@ -32,11 +31,12 @@ class IMainWindow(QMainWindow):
         self.arena = IArena(self.bot1, self.bot2)
         self.setCentralWidget(self.arena)
         self.setWindowTitle("Simul Strategy")
+        self.resize(3000, 2000)
         self.closed_signal.connect(self.arena.close)
         self.closed_signal.connect(self.close)
         self.timer_ticks = QTimer(self)
         self.timer_ticks.timeout.connect(self.arena.update_bots)
-        self.timer_ticks.start(1000 // 60)
+        self.timer_ticks.start(1000 / 60)
 
     @Slot()
     def close_window(self) -> None:
